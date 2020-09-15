@@ -3,6 +3,14 @@ body {
 }
 
 .app {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+
+  &__left {
+    flex: 0.9
+  }
+
   &__header {
     display: flex;
     justify-content: space-between;
@@ -11,5 +19,11 @@ body {
   &__stats {
     display: flex;
     justify-content: space-between;
+  }
+}
+
+@media(max-width: 990px) {
+  .app {
+    flex-direction: column;
   }
 }

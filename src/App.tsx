@@ -61,7 +61,7 @@ interface CovidInfo {
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
   const [country, setCountry] = useState<string>(""); // https://material-ui.com/guides/typescript/
-  const [covidInfo, setCovidInfo] = useState({});
+  const [covidInfo, setCovidInfo] = useState<CovidInfo | undefined>(undefined);
 
   useEffect(() => {
     const getCountriesList = async () => {
@@ -120,9 +120,21 @@ function App() {
           </FormControl>
         </div>
         <div className="app__stats">
-          <InfoBox title="Coronavirus cases" cases={123} total={234} />
-          <InfoBox title="Recovered" cases={123} total={234} />
-          <InfoBox title="Deaths" cases={123} total={234} />
+          <InfoBox
+            title="Coronavirus cases"
+            cases={covidInfo?.todayCases || 0}
+            total={covidInfo?.cases || 0}
+          />
+          <InfoBox
+            title="Recovered"
+            cases={covidInfo?.todayRecovered || 0}
+            total={covidInfo?.recovered || 0}
+          />
+          <InfoBox
+            title="Deaths"
+            cases={covidInfo?.todayDeaths || 0}
+            total={covidInfo?.deaths || 0}
+          />
         </div>
         <Map />
       </div>

@@ -81,6 +81,14 @@ function App() {
     getCountriesList();
   }, []);
 
+  useEffect(() => {
+    const fetchCovidInfo = async () => {
+      const response = await getCovidInfo();
+      setCovidInfo(response);
+    };
+    fetchCovidInfo();
+  }, []);
+
   const onCountryChange = async (
     event: ChangeEvent<{
       name?: string | undefined;

@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import InfoBox from "./components/InfoBox";
 import Map from "./components/Map";
+import Table from "./components/Table";
 
 import MenuItem from "@material-ui/core/MenuItem";
 import {
@@ -12,6 +13,8 @@ import {
   getCovidInfo,
   getCovidInfoByCountryCode,
 } from "./services/api";
+
+import { CovidInfo } from "./utils/interfaces";
 
 import "./App.scss";
 
@@ -25,49 +28,17 @@ interface CountryListResponse {
   countryInfo: { iso3: string };
 }
 
-interface CovidInfo {
-  updated: number;
-  country: string;
-  countryInfo: {
-    _id: number;
-    iso2: string;
-    iso3: string;
-    lat: number;
-    long: number;
-    flag: string;
-  };
-  cases: number;
-  todayCases: number;
-  deaths: number;
-  todayDeaths: number;
-  recovered: number;
-  todayRecovered: number;
-  active: number;
-  critical: number;
-  casesPerOneMillion: number;
-  deathsPerOneMillion: number;
-  tests: number;
-  testsPerOneMillion: number;
-  population: number;
-  continent: string;
-  oneCasePerPeople: number;
-  oneDeathPerPeople: number;
-  oneTestPerPeople: number;
-  activePerOneMillion: number;
-  recoveredPerOneMillion: number;
-  criticalPerOneMillion: number;
-}
-
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
   const [country, setCountry] = useState<string>(""); // https://material-ui.com/guides/typescript/
   const [covidInfo, setCovidInfo] = useState<CovidInfo | undefined>(undefined);
+  const [tableData, setTableData] = useState<CovidInfo[]>([]);
 
   useEffect(() => {
     const getCountriesList = async () => {
-      const response: CountryListResponse[] = await getCountries();
+      const response: CovidInfo[] = await getCountries();
 
-      const countryList = response.map((country: CountryListResponse) => ({
+      const countryList = response.map((country: CovidInfo) => ({
         name: country.country,
         value: country.countryInfo.iso3,
       }));
@@ -75,6 +46,7 @@ function App() {
       countryList.unshift({ name: "Woldwide", value: "worldWide" });
 
       setCountries(countryList);
+      setTableData(response);
       setCountry("worldWide");
     };
 
@@ -148,8 +120,11 @@ function App() {
       </div>
       <Card className="app__right">
         <CardContent>
-          <h3>Live cases by country</h3>
-          <h3>asd</h3>
+          <div>
+            <h3>Live cases by country</h3>
+            <Table countries={tableData} />
+          </div>
+          <h3>Worldwide new cases</h3>
         </CardContent>
       </Card>
     </div>

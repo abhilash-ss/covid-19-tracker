@@ -1,7 +1,7 @@
 import React, { useEffect, useState, ChangeEvent } from "react";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-// import InputLabel from "@material-ui/core/InputLabel";
+import InfoBox from "./components/InfoBox";
 
 import MenuItem from "@material-ui/core/MenuItem";
 import { getCountries } from "./services/api";
@@ -68,19 +68,11 @@ function App() {
           </Select>
         </FormControl>
       </div>
-      <FormControl>
-        {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          // value={age}
-          onChange={(e) => console.log("it is working", e.target.value)}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
+      <div className="app__stats">
+        <InfoBox title="Coronavirus cases" cases={123} total={234} />
+        <InfoBox title="Recovered" cases={123} total={234} />
+        <InfoBox title="Deaths" cases={123} total={234} />
+      </div>
     </div>
   );
 }

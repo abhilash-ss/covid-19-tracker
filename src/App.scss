@@ -1,5 +1,14 @@
+body {
+  background-color: #f5f6fa;
+}
+
 .app {
   &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__stats {
     display: flex;
     justify-content: space-between;
   }

@@ -14,6 +14,7 @@ import {
   getCovidInfoByCountryCode,
 } from "./services/api";
 
+import sortData from "./utils/sortData";
 import { CovidInfo } from "./utils/interfaces";
 
 import "./App.scss";
@@ -46,7 +47,8 @@ function App() {
       countryList.unshift({ name: "Woldwide", value: "worldWide" });
 
       setCountries(countryList);
-      setTableData(response);
+      const sortedData: CovidInfo[] = sortData(response);
+      setTableData(sortedData);
       setCountry("worldWide");
     };
 

@@ -33,4 +33,22 @@ const getCovidInfoByCountryCode = async (countryCode: string) => {
   }
 };
 
-export { getCountries, getCovidInfo, getCovidInfoByCountryCode };
+const getCovidHistory = async (days: number) => {
+  try {
+    const response = await fetch(
+      `https://disease.sh/v3/covid-19/historical/all?lastdays=${days}`
+    );
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
+
+export {
+  getCountries,
+  getCovidInfo,
+  getCovidInfoByCountryCode,
+  getCovidHistory,
+};

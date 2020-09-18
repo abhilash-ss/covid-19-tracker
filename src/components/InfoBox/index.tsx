@@ -9,6 +9,7 @@ interface Props {
   title: string;
   cases: string;
   total: string;
+  active: boolean;
   onClick: MouseEventHandler;
 }
 
@@ -17,9 +18,13 @@ const InfoBox: FunctionComponent<Props> = ({
   cases = 0,
   total = 0,
   onClick,
+  active,
 }) => {
   return (
-    <Card className="info-box" onClick={onClick}>
+    <Card
+      className={`info-box ${active && `info-box--selected`}`}
+      onClick={onClick}
+    >
       <CardContent>
         <Typography
           className="info-box__title"

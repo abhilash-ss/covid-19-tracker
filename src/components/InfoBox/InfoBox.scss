@@ -5,6 +5,7 @@
     &:not(:last-child) {
         margin-right: 15px;
     }
+
     &__cases {
         color: #cc1034;
         font-weight: 600;
@@ -18,5 +19,9 @@
         font-weight: 700;
         font-size: 0.8rem;
         margin-top: 15px;
+    }
+
+    &--selected {
+        border-top: 10px solid gray;
     }
 }

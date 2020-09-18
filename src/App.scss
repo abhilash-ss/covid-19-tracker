@@ -14,6 +14,11 @@ body {
   &__header {
     display: flex;
     justify-content: space-between;
+
+    h1 {
+      color: #fc3c3c;
+      font-size: 2rem;
+    }
   }
 
   &__stats {

@@ -1,7 +1,7 @@
 .table {
     margin-top: 20px;
     overflow-y: scroll;
-    height: 400px;
+    height: 460px;
     color: #6a5d5d;
 
     tr {
@@ -15,6 +15,7 @@
 
     td {
         padding: 0.5rem;
+        border: none;
     }
 
 }

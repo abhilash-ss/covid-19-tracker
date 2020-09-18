@@ -22,6 +22,12 @@
     }
 
     &--selected {
-        border-top: 10px solid gray;
+        &-success {
+            border-top: 10px solid #8fd460;
+        }
+
+        &-alert {
+            border-top: 10px solid #e84749;
+        }
     }
 }

@@ -10,6 +10,7 @@ interface Props {
   cases: string;
   total: string;
   active: boolean;
+  uiType: "success" | "alert";
   onClick: MouseEventHandler;
 }
 
@@ -17,12 +18,13 @@ const InfoBox: FunctionComponent<Props> = ({
   title,
   cases = 0,
   total = 0,
-  onClick,
   active,
+  uiType,
+  onClick,
 }) => {
   return (
     <Card
-      className={`info-box ${active && `info-box--selected`}`}
+      className={`info-box ${active && `info-box--selected-${uiType}`}`}
       onClick={onClick}
     >
       <CardContent>

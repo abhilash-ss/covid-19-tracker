@@ -102,7 +102,7 @@ function App() {
     <div className="app">
       <div className="app__left">
         <div className="app__header">
-          <h1>Covid 19 tracker</h1>
+          <h1>COVID-19 TRACKER</h1>
           <FormControl className="app__drop-down" variant="outlined">
             <Select onChange={onCountryChange} value={country}>
               {countries.map((country: Country, index: number) => {
@@ -118,6 +118,7 @@ function App() {
         <div className="app__stats">
           <InfoBox
             title="Coronavirus cases"
+            uiType="alert"
             active={casesType === "cases"}
             cases={prettyPrintStat(covidInfo?.todayCases || 0)}
             total={prettyPrintStat(covidInfo?.cases || 0)}
@@ -125,6 +126,7 @@ function App() {
           />
           <InfoBox
             title="Recovered"
+            uiType="success"
             active={casesType === "recovered"}
             cases={prettyPrintStat(covidInfo?.todayRecovered || 0)}
             total={prettyPrintStat(covidInfo?.recovered || 0)}
@@ -132,6 +134,7 @@ function App() {
           />
           <InfoBox
             title="Deaths"
+            uiType="alert"
             active={casesType === "deaths"}
             cases={prettyPrintStat(covidInfo?.todayDeaths || 0)}
             total={prettyPrintStat(covidInfo?.deaths || 0)}

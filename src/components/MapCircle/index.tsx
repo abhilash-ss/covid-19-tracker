@@ -29,14 +29,16 @@ const caseTypeColours = {
 const MapCircle: FunctionComponent<Props> = ({ data, casesType = "cases" }) => {
   return (
     <>
-      {data.map((country: any) => (
+      {data.map((country: any, index: number) => (
         <Circle
+          key={index.toString()}
           center={[country.countryInfo.lat, country.countryInfo.long]}
           fillOpacity={0.4}
           color={caseTypeColours[casesType].hex}
           fillColor={caseTypeColours[casesType].hex}
           radius={
-            Math.sqrt(country[casesType]) * caseTypeColours[casesType].multiplier
+            Math.sqrt(country[casesType]) *
+            caseTypeColours[casesType].multiplier
           }
         >
           <Popup>

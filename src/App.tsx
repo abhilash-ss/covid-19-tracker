@@ -18,6 +18,7 @@ import {
 import sortData from "./utils/sortData";
 import { CovidInfo } from "./utils/interfaces";
 
+import "leaflet/dist/leaflet.css";
 import "./App.scss";
 
 interface Country {

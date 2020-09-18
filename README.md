@@ -2,7 +2,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### COVID-19 TRACKER
 
-![covid-19-tracker](https://user-images.githubusercontent.com/22938813/93599491-d54d7a00-f9db-11ea-815e-9a6c55035990.png)
+Check it here: https://itsmeab.github.io/covid-19-tracker/
+
+![covid-19-tracker](https://user-images.githubusercontent.com/22938813/93602275-09c33500-f9e0-11ea-8f59-4f1ac8b35d5a.png)
 
 
 It is a COVID-19 TRACKER project using React with Typescript.

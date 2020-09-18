@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, MouseEventHandler } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -9,11 +9,17 @@ interface Props {
   title: string;
   cases: string;
   total: string;
+  onClick: MouseEventHandler;
 }
 
-const InfoBox: FunctionComponent<Props> = ({ title, cases = 0, total = 0 }) => {
+const InfoBox: FunctionComponent<Props> = ({
+  title,
+  cases = 0,
+  total = 0,
+  onClick,
+}) => {
   return (
-    <Card className="info-box">
+    <Card className="info-box" onClick={onClick}>
       <CardContent>
         <Typography
           className="info-box__title"

@@ -8,7 +8,7 @@ import "./MapCircle.scss";
 
 interface Props {
   data: CovidInfo[];
-  caseType?: "cases" | "deaths" | "recovered";
+  casesType?: "cases" | "deaths" | "recovered";
 }
 
 const caseTypeColours = {
@@ -26,17 +26,17 @@ const caseTypeColours = {
   },
 };
 
-const MapCircle: FunctionComponent<Props> = ({ data, caseType = "cases" }) => {
+const MapCircle: FunctionComponent<Props> = ({ data, casesType = "cases" }) => {
   return (
     <>
       {data.map((country: any) => (
         <Circle
           center={[country.countryInfo.lat, country.countryInfo.long]}
           fillOpacity={0.4}
-          color={caseTypeColours[caseType].hex}
-          fillColor={caseTypeColours[caseType].hex}
+          color={caseTypeColours[casesType].hex}
+          fillColor={caseTypeColours[casesType].hex}
           radius={
-            Math.sqrt(country[caseType]) * caseTypeColours[caseType].multiplier
+            Math.sqrt(country[casesType]) * caseTypeColours[casesType].multiplier
           }
         >
           <Popup>

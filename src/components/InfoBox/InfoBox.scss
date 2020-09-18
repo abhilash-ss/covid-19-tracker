@@ -1,5 +1,6 @@
 .info-box {
     flex: 1;
+    cursor: pointer;
 
     &:not(:last-child) {
         margin-right: 15px;

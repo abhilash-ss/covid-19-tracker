@@ -42,6 +42,9 @@ function App() {
     lng: -40.4796,
     zoom: 3,
   });
+  const [casesType, setCasesType] = useState<"cases" | "deaths" | "recovered">(
+    "cases"
+  );
 
   useEffect(() => {
     const getCountriesList = async () => {
@@ -117,22 +120,26 @@ function App() {
             title="Coronavirus cases"
             cases={prettyPrintStat(covidInfo?.todayCases || 0)}
             total={prettyPrintStat(covidInfo?.cases || 0)}
+            onClick={(e) => setCasesType("cases")}
           />
           <InfoBox
             title="Recovered"
             cases={prettyPrintStat(covidInfo?.todayRecovered || 0)}
             total={prettyPrintStat(covidInfo?.recovered || 0)}
+            onClick={(e) => setCasesType("recovered")}
           />
           <InfoBox
             title="Deaths"
             cases={prettyPrintStat(covidInfo?.todayDeaths || 0)}
             total={prettyPrintStat(covidInfo?.deaths || 0)}
+            onClick={(e) => setCasesType("deaths")}
           />
         </div>
         <Map
           center={[mapData.lat, mapData.lng]}
           zoom={mapData.zoom}
           countries={mapCountries}
+          casesType={casesType}
         />
       </div>
       <Card className="app__right">
@@ -141,8 +148,8 @@ function App() {
             <h3>Live cases by country</h3>
             <Table countries={tableData} />
           </div>
-          <h3>Worldwide new cases</h3>
-          <LineGraph />
+            <h3>Worldwide new cases {casesType}</h3>
+          <LineGraph casesType={casesType}/>
         </CardContent>
       </Card>
     </div>

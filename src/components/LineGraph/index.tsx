@@ -5,7 +5,7 @@ import numeral from "numeral";
 import { getCovidHistory } from "../../services/api";
 
 interface Props {
-  caseType?: "cases" | "deaths" | "recovered";
+  casesType?: "cases" | "deaths" | "recovered";
 }
 
 interface IHistory {
@@ -16,7 +16,7 @@ interface IHistory {
 
 const buildChartData = (
   data: any,
-  caseType: "cases" | "deaths" | "recovered" = "cases"
+  casesType: "cases" | "deaths" | "recovered" = "cases"
 ) => {
   const chartData = [];
   let lastDataPoint: number | undefined;
@@ -24,11 +24,11 @@ const buildChartData = (
     if (lastDataPoint) {
       const newDataPoint = {
         x: date,
-        y: data[caseType][date] - lastDataPoint,
+        y: data[casesType][date] - lastDataPoint,
       };
       chartData.push(newDataPoint);
     }
-    lastDataPoint = data[caseType][date];
+    lastDataPoint = data[casesType][date];
   }
   return chartData;
 };
@@ -85,12 +85,12 @@ const LineGraph = (props: Props) => {
   useEffect(() => {
     const fetchCovidHistory = async () => {
       const response: IHistory = await getCovidHistory(120);
-      const chartData = buildChartData(response, props.caseType || "cases");
+      const chartData = buildChartData(response, props.casesType || "cases");
       setData(chartData);
     };
 
     fetchCovidHistory();
-  }, [props.caseType]);
+  }, [props.casesType]);
 
   return (
     <div>

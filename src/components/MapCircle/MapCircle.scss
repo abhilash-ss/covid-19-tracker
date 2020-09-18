@@ -1,0 +1,26 @@
+.info-container {
+    width: 150px;
+
+    &__flag {
+        height: 80px;
+        width: 100%;
+        background-size: cover;
+        border-radius: 8px;
+
+        img {
+            width: 100px;
+            border-radius: 5px;
+        }
+    }
+
+    &__name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    &__stats {
+        font-size: 16px;
+        margin-top: 5px;
+    }
+}

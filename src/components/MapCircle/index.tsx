@@ -1,7 +1,10 @@
 import React, { FunctionComponent } from "react";
 import { Circle, Popup } from "react-leaflet";
+import numeral from "numeral";
 
 import { CovidInfo } from "../../utils/interfaces";
+
+import "./MapCircle.scss";
 
 interface Props {
   data: CovidInfo[];
@@ -36,7 +39,24 @@ const MapCircle: FunctionComponent<Props> = ({ data, caseType = "cases" }) => {
             Math.sqrt(country[caseType]) * caseTypeColours[caseType].multiplier
           }
         >
-          <Popup>Popup</Popup>
+          <Popup>
+            <div className="info-container">
+              <div
+                className="info-container__flag"
+                style={{ backgroundImage: `url(${country.countryInfo.flag})` }}
+              />
+              <div className="info-container__name">{country.country}</div>
+              <div className="info-container__stats">
+                Cases: {numeral(country.cases).format("0,0")}
+              </div>
+              <div className="info-container__stats">
+                Recovered: {numeral(country.recovered).format("0,0")}
+              </div>
+              <div className="info-container__stats">
+                Deaths: {numeral(country.deaths).format("0,0")}
+              </div>
+            </div>
+          </Popup>
         </Circle>
       ))}
     </>

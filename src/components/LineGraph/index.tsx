@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Line } from "react-chartjs-2";
+import { Line, ChartData } from "react-chartjs-2";
 import numeral from "numeral";
 
 import { getCovidHistory } from "../../services/api";
 
 interface Props {
-  casesType?: "cases" | "deaths" | "recovered";
+  className?: string;
+  casesType: "cases" | "deaths" | "recovered";
 }
 
 interface IHistory {
@@ -14,32 +15,13 @@ interface IHistory {
   recovered: { [key: number]: number }[];
 }
 
-const buildChartData = (
-  data: any,
-  casesType: "cases" | "deaths" | "recovered" = "cases"
-) => {
-  const chartData = [];
-  let lastDataPoint: number | undefined;
-  for (let date in data.cases) {
-    if (lastDataPoint) {
-      const newDataPoint = {
-        x: date,
-        y: data[casesType][date] - lastDataPoint,
-      };
-      chartData.push(newDataPoint);
-    }
-    lastDataPoint = data[casesType][date];
-  }
-  return chartData;
-};
-
 const options = {
   legend: {
     display: false,
   },
   elements: {
     point: {
-      raadius: 0,
+      radius: 0,
     },
   },
   maintainAspectRatio: false,
@@ -68,10 +50,8 @@ const options = {
           display: false,
         },
         ticks: {
-          callbacks: {
-            label: (value: any, index: any, values: any) => {
-              return numeral(value).format("0a");
-            },
+          callback: (value: any, index: any, values: any) => {
+            return numeral(value).format("0a");
           },
         },
       },
@@ -79,13 +59,32 @@ const options = {
   },
 };
 
+const buildChartData = (
+  data: any,
+  casesType: "cases" | "deaths" | "recovered" = "cases"
+) => {
+  const chartData = [];
+  let lastDataPoint: number | undefined;
+  for (let date in data.cases) {
+    if (lastDataPoint) {
+      const newDataPoint = {
+        x: date,
+        y: data[casesType][date] - lastDataPoint,
+      };
+      chartData.push(newDataPoint);
+    }
+    lastDataPoint = data[casesType][date];
+  }
+  return chartData;
+};
+
 const LineGraph = (props: Props) => {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<ChartData<any>>([]);
 
   useEffect(() => {
     const fetchCovidHistory = async () => {
       const response: IHistory = await getCovidHistory(120);
-      const chartData = buildChartData(response, props.casesType || "cases");
+      const chartData = buildChartData(response, props.casesType);
       setData(chartData);
     };
 
@@ -93,7 +92,7 @@ const LineGraph = (props: Props) => {
   }, [props.casesType]);
 
   return (
-    <div>
+    <div className={props.className}>
       {data?.length && (
         <Line
           data={{

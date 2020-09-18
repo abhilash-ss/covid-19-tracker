@@ -4,7 +4,9 @@ import numeral from "numeral";
 
 import { getCovidHistory } from "../../services/api";
 
-interface Props {}
+interface Props {
+  caseType?: "cases" | "deaths" | "recovered";
+}
 
 interface IHistory {
   cases: { [key: number]: number }[];
@@ -65,9 +67,11 @@ const options = {
         gridLines: {
           display: false,
         },
-        callbacks: {
-          label: (value: any, index: any, values: any) => {
-            return numeral(value).format("0a");
+        ticks: {
+          callbacks: {
+            label: (value: any, index: any, values: any) => {
+              return numeral(value).format("0a");
+            },
           },
         },
       },
@@ -81,12 +85,12 @@ const LineGraph = (props: Props) => {
   useEffect(() => {
     const fetchCovidHistory = async () => {
       const response: IHistory = await getCovidHistory(120);
-      const chartData = buildChartData(response);
+      const chartData = buildChartData(response, props.caseType || "cases");
       setData(chartData);
     };
 
     fetchCovidHistory();
-  }, []);
+  }, [props.caseType]);
 
   return (
     <div>

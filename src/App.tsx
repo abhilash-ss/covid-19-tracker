@@ -36,6 +36,11 @@ function App() {
   const [country, setCountry] = useState<string>(""); // https://material-ui.com/guides/typescript/
   const [covidInfo, setCovidInfo] = useState<CovidInfo | undefined>(undefined);
   const [tableData, setTableData] = useState<CovidInfo[]>([]);
+  const [mapData, setMapData] = useState({
+    lat: 34.80746,
+    lng: -40.4796,
+    zoom: 3,
+  });
 
   useEffect(() => {
     const getCountriesList = async () => {
@@ -73,11 +78,16 @@ function App() {
   ) => {
     const countryCode = event.target.value as string; // https://github.com/mui-org/material-ui/issues/16065
 
-    let response;
+    let response: CovidInfo;
     if (countryCode === "worldWide") {
       response = await getCovidInfo();
     } else {
       response = await getCovidInfoByCountryCode(countryCode);
+      setMapData({
+        lat: response.countryInfo.lat,
+        lng: response.countryInfo.long,
+        zoom: 4,
+      });
     }
     setCovidInfo(response);
     setCountry(event.target.value as string);
@@ -118,7 +128,7 @@ function App() {
             total={covidInfo?.deaths || 0}
           />
         </div>
-        <Map />
+        <Map center={[mapData.lat, mapData.lng]} zoom={mapData.zoom} />
       </div>
       <Card className="app__right">
         <CardContent>

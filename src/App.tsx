@@ -15,7 +15,7 @@ import {
   getCovidInfoByCountryCode,
 } from "./services/api";
 
-import sortData from "./utils/sortData";
+import sortData from "./utils/functions";
 import { CovidInfo } from "./utils/interfaces";
 
 import "leaflet/dist/leaflet.css";
@@ -36,6 +36,7 @@ function App() {
   const [country, setCountry] = useState<string>(""); // https://material-ui.com/guides/typescript/
   const [covidInfo, setCovidInfo] = useState<CovidInfo | undefined>(undefined);
   const [tableData, setTableData] = useState<CovidInfo[]>([]);
+  const [mapCountries, setMapCountries] = useState<CovidInfo[]>([]);
   const [mapData, setMapData] = useState({
     lat: 34.80746,
     lng: -40.4796,
@@ -56,6 +57,7 @@ function App() {
       setCountries(countryList);
       const sortedData: CovidInfo[] = sortData(response);
       setTableData(sortedData);
+      setMapCountries(response);
       setCountry("worldWide");
     };
 
@@ -99,7 +101,6 @@ function App() {
         <div className="app__header">
           <h1>Covid 19 tracker</h1>
           <FormControl className="app__drop-down" variant="outlined">
-            {/* <InputLabel id="demo-simple-select-label">Country</InputLabel> */}
             <Select onChange={onCountryChange} value={country}>
               {countries.map((country: Country, index: number) => {
                 return (
@@ -128,7 +129,11 @@ function App() {
             total={covidInfo?.deaths || 0}
           />
         </div>
-        <Map center={[mapData.lat, mapData.lng]} zoom={mapData.zoom} />
+        <Map
+          center={[mapData.lat, mapData.lng]}
+          zoom={mapData.zoom}
+          countries={mapCountries}
+        />
       </div>
       <Card className="app__right">
         <CardContent>

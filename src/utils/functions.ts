@@ -1,3 +1,4 @@
+import numeral from "numeral";
 import { CovidInfo } from "./interfaces";
 
 const sortData = (data: CovidInfo[]): CovidInfo[] => {
@@ -6,4 +7,7 @@ const sortData = (data: CovidInfo[]): CovidInfo[] => {
   return sortedData;
 };
 
-export default sortData;
+const prettyPrintStat = (stat: number) =>
+  stat ? `+${numeral(stat).format("0.0a")}` : "+0";
+
+export { sortData, prettyPrintStat };

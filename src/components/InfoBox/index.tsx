@@ -1,25 +1,33 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
+import "./InfoBox.scss";
+
 interface Props {
   title: string;
-  cases: number;
-  total: number;
+  cases: string;
+  total: string;
 }
 
-const InfoBox = (props: Props) => {
+const InfoBox: FunctionComponent<Props> = ({ title, cases = 0, total = 0 }) => {
   return (
-    <Card>
+    <Card className="info-box">
       <CardContent>
-        <Typography color="textSecondary" gutterBottom>
-          {props.title}
+        <Typography
+          className="info-box__title"
+          color="textSecondary"
+          gutterBottom
+        >
+          {title}
         </Typography>
-        <Typography variant="h3" component="h3">
-          {props.cases}
+        {/* <Typography variant="h3" component="h3"> */}
+        <h2 className="info-box__cases">{cases}</h2>
+        {/* </Typography> */}
+        <Typography className="info-box__total" color="textSecondary">
+          {total} Total
         </Typography>
-        <Typography color="textSecondary">{props.total} Total</Typography>
       </CardContent>
     </Card>
   );

@@ -15,7 +15,7 @@ import {
   getCovidInfoByCountryCode,
 } from "./services/api";
 
-import sortData from "./utils/functions";
+import { sortData, prettyPrintStat } from "./utils/functions";
 import { CovidInfo } from "./utils/interfaces";
 
 import "leaflet/dist/leaflet.css";
@@ -115,18 +115,18 @@ function App() {
         <div className="app__stats">
           <InfoBox
             title="Coronavirus cases"
-            cases={covidInfo?.todayCases || 0}
-            total={covidInfo?.cases || 0}
+            cases={prettyPrintStat(covidInfo?.todayCases || 0)}
+            total={prettyPrintStat(covidInfo?.cases || 0)}
           />
           <InfoBox
             title="Recovered"
-            cases={covidInfo?.todayRecovered || 0}
-            total={covidInfo?.recovered || 0}
+            cases={prettyPrintStat(covidInfo?.todayRecovered || 0)}
+            total={prettyPrintStat(covidInfo?.recovered || 0)}
           />
           <InfoBox
             title="Deaths"
-            cases={covidInfo?.todayDeaths || 0}
-            total={covidInfo?.deaths || 0}
+            cases={prettyPrintStat(covidInfo?.todayDeaths || 0)}
+            total={prettyPrintStat(covidInfo?.deaths || 0)}
           />
         </div>
         <Map

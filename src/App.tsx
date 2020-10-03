@@ -20,6 +20,7 @@ import { CovidInfo } from "./utils/interfaces";
 
 import "leaflet/dist/leaflet.css";
 import "./App.scss";
+import Loading from "./components/Loading";
 
 interface Country {
   name: string;
@@ -34,6 +35,7 @@ interface CountryListResponse {
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
   const [country, setCountry] = useState<string>(""); // https://material-ui.com/guides/typescript/
+  const [isLoading, setIsLoading] = useState<boolean>(true); // https://material-ui.com/guides/typescript/
   const [covidInfo, setCovidInfo] = useState<CovidInfo | undefined>(undefined);
   const [tableData, setTableData] = useState<CovidInfo[]>([]);
   const [mapCountries, setMapCountries] = useState<CovidInfo[]>([]);
@@ -71,6 +73,7 @@ function App() {
     const fetchCovidInfo = async () => {
       const response = await getCovidInfo();
       setCovidInfo(response);
+      setIsLoading(false);
     };
     fetchCovidInfo();
   }, []);
@@ -97,7 +100,8 @@ function App() {
     setCovidInfo(response);
     setCountry(event.target.value as string);
   };
-
+  if (isLoading)
+    return <Loading/>
   return (
     <div className="app">
       <div className="app__left">

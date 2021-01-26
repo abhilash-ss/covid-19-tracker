@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### COVID-19 TRACKER
 
-Check it here: https://itsmeab.github.io/covid-19-tracker/
+Check it here: https://abhilash-ss.github.io/covid-19-tracker/
 
 ![covid-19-tracker](https://user-images.githubusercontent.com/22938813/93602275-09c33500-f9e0-11ea-8f59-4f1ac8b35d5a.png)
 
